@@ -17,8 +17,13 @@ public class SceneController : MonoBehaviour
         
     }
 
-    void StartGame()
+    public void StartGame()
     {
         SceneManager.LoadScene("Beginner Stage");
+    }
+
+    public void TutorialPage()
+    {
+        SceneManager.LoadScene("Tutorial page");
     }
 }
