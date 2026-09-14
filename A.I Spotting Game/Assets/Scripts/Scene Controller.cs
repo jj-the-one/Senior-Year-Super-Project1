@@ -26,4 +26,24 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial page");
     }
+
+    public void ResultsPage()
+    {
+        SceneManager.LoadScene("Results Page");
+    }
+
+    public void IntermediateStage()
+    {
+        SceneManager.LoadScene("Intermediate Stage");
+    }
+
+    public void AdvancedStage()
+    {
+        SceneManager.LoadScene("Advanced Stage");
+    }
+
+    public void HomePage()
+    {
+        SceneManager.LoadScene("Home Page");
+    }
 }
