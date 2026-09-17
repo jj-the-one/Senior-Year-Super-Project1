@@ -1,61 +1,103 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GradingDisplay : MonoBehaviour
 {
-    //take in score from the player object/prefab + Player Inventory script.
+    private PlayerInventory inventory;
 
-    // Start is called before the first frame update
+    public TMP_Text scoreText;
+    public TMP_Text gradeText;
+    public TMP_Text explanationText;
+
     void Start()
     {
-        /*
-        if(score <= 3){
-            Display: Your Score: (Score Variable)
-            Display: Grade: G
-            Display: Explanation: Getting a grade of G indicates a extremely high need of improvement as your ability to distinguish A.I and real imagery with a reference is lacking. 
+        // Find the Player using the "Player" tag
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            Debug.LogError("Player with the 'Player' tag could not be found!");
+            return;
         }
-        else if(score <= 5){
-            Display: your score: (Score Variable)
-            Display: Grade: F
-            Display: Explanation: Getting a grade of F indicates a very high need of improvement as your ability to distinguish A.I and real imagery with a reference is lacking. 
+
+        // Get the PlayerInventory component from the Player
+        inventory = player.GetComponent<PlayerInventory>();
+
+        if (inventory == null)
+        {
+            Debug.LogError("PlayerInventory component could not be found on the Player!");
+            return;
         }
-        else if(score <= 7){
-            Display: your score: (Score Variable)
-            Display: Grade: E
-            Display: Explanation: Getting a grade of E indicates a high need of improvement as your ability to distinguish A.I and real imagery with a reference is lacking.
-        }
-        else if(score <= 10){
-            Display: your score: (Score Variable)
-            Display: Grade: D
-            Display: Explanation: Getting a grade of D indicates room for improvement. From the previous level, you have demonstrated clear ability to  
-        }
-        else if(score <= 12){
-            Display: your score: (Score Variable)
-            Display: Grade: C
-        }
-        else if(score <= 14){
-            Display: your score: (Score Variable)
-            Display: Grade: B
-        }
-        else if(score <= 17){
-            Display: your score: (Score Variable)
-            Display: Grade: A
-        }
-        else if(score <= 19){
-            Display: your score: (Score Variable)
-            Display: Grade: S
-        }
-        else{
-            Display: your score: (Score Variable)
-            Display: Grade: Z
-        }
-         */
+
+        DisplayGrade();
     }
 
-    // Update is called once per frame
-    void Update()
+    void DisplayGrade()
     {
-        
+        int score = inventory.score;
+
+        scoreText.text = "Your Score: " + score;
+
+        if (score <= 3)
+        {
+            gradeText.text = "Grade: G";
+            explanationText.text =
+                "Getting a grade of G indicates an extremely high need for improvement. " +
+                "Your ability to distinguish AI and real imagery with a reference is lacking.";
+        }
+        else if (score <= 5)
+        {
+            gradeText.text = "Grade: F";
+            explanationText.text =
+                "Getting a grade of F indicates a very high need for improvement. " +
+                "Your ability to distinguish AI and real imagery with a reference is lacking.";
+        }
+        else if (score <= 7)
+        {
+            gradeText.text = "Grade: E";
+            explanationText.text =
+                "Getting a grade of E indicates a high need for improvement. " +
+                "Your ability to distinguish AI and real imagery with a reference is lacking.";
+        }
+        else if (score <= 10)
+        {
+            gradeText.text = "Grade: D";
+            explanationText.text =
+                "Getting a grade of D indicates room for improvement. " +
+                "You have shown that you can recognize some basic differences between AI-generated images and real images.";
+        }
+        else if (score <= 12)
+        {
+            gradeText.text = "Grade: C";
+            explanationText.text =
+                "Getting a grade of C indicates a developing ability to distinguish AI-generated images from real images.";
+        }
+        else if (score <= 14)
+        {
+            gradeText.text = "Grade: B";
+            explanationText.text =
+                "Getting a grade of B indicates a good ability to distinguish AI-generated images from real images.";
+        }
+        else if (score <= 17)
+        {
+            gradeText.text = "Grade: A";
+            explanationText.text =
+                "Getting a grade of A indicates a very strong ability to distinguish AI-generated images from real images.";
+        }
+        else if (score <= 19)
+        {
+            gradeText.text = "Grade: S";
+            explanationText.text =
+                "Getting a grade of S indicates an exceptional ability to distinguish AI-generated images from real images.";
+        }
+        else
+        {
+            gradeText.text = "Grade: Z";
+            explanationText.text =
+                "Getting a grade of Z indicates an outstanding performance. " +
+                "You demonstrated an extremely strong ability to distinguish AI-generated images from real images.";
+        }
     }
 }

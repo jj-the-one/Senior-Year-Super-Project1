@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int score = 0;
+    public int health = 5;
+    private static PlayerInventory instance;
+
+    void Awake()
     {
-        
+        if (instance != null && instance != this) {
+            Destroy(gameObject); 
+            return; 
+        }
+        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddScore(int amount)
     {
-        
+        score += amount;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            //access Scene Controller Script and call function ResultsPage()
+            SceneController sceneController = FindObjectOfType<SceneController>();
+            if (sceneController != null){
+                sceneController.ResultsPage();
+            }
+            else{
+                Debug.LogError("SceneController could not be found!");
+            }
+        }
+    }
+
+    public void Heal(int amount)
+    {
+        health += amount;
+        if (health > 5)
+        {
+            health = 5;
+        }
     }
 }
