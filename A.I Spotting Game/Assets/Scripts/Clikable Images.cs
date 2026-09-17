@@ -10,4 +10,9 @@ public class ClikableImages : MonoBehaviour, IPointerClickHandler
         Debug.Log("Image was clicked!");
     }
 }
-
+/*
+if the image was clicked then it has to initiate sequence of actoons:
+    -Random change of text
+    -Showing whic answer was right based on the task for the round
+    -
+*/
