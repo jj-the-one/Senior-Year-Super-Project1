@@ -12,6 +12,7 @@ public class PlayerDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DisplayHealth();
         
     }
 
@@ -19,5 +20,10 @@ public class PlayerDisplay : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void DisplayHealth()
+    {
+        //healthText.text = "Hp: " + health +"/5";
     }
 }
