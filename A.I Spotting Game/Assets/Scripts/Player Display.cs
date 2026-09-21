@@ -12,6 +12,9 @@ public class PlayerDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        inventory = player.GetComponent<PlayerInventory>();
+
         DisplayHealth();
         
     }
@@ -19,11 +22,11 @@ public class PlayerDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DisplayHealth(); 
     }
 
     void DisplayHealth()
     {
-        //healthText.text = "Hp: " + health +"/5";
+        healthText.text = "Hp: " + inventory.health +"/5";
     }
 }
