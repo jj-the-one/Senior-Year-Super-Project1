@@ -44,19 +44,11 @@ public class ClikableImages : MonoBehaviour, IPointerClickHandler
         
     }
 
-    public void CheckAnswer()
+    public void CheckAnswer(GameObject currentImage)
     {
-      
-    /*
-        if (rightAnswer)
-        {
-            inventory.AddScore(1);
+        if (currentImage == LeftImage) {
+            
         }
-        else
-        {
-            inventory.TakeDamage(1);
-        }
-        */
     }
 }
 
