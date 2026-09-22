@@ -5,16 +5,35 @@ using UnityEngine.EventSystems;
 
 public class ClikableImages : MonoBehaviour, IPointerClickHandler
 {
+    private GameObject LeftImage;
+    private GameObject RightImage;
+    public bool leftReal;
+    public bool rightReal;
     private PlayerInventory inventory;
     public List<Texture2D> beginnerRealImages = new List<Texture2D>();
     public List<Texture2D> beginnerAIImages = new List<Texture2D>();
-    public Texture2D currentImage;
+ //   public Texture2D currentImage;
+    
     public void Start() {
+        LeftImage = GameObject.Find("ImageSpotLeft");
+        RightImage = GameObject.Find("ImageSpotRight");
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         inventory = player.GetComponent<PlayerInventory>();
+
         //Load images from the two folders
         beginnerRealImages.AddRange(Resources.LoadAll<Texture2D>("Photos/Beginner Level Real"));
         beginnerAIImages.AddRange(Resources.LoadAll<Texture2D>("Photos/Beginner Level A.I"));
+
+        int x = Random.Range(0,2);
+        if (x == 0) {
+            leftReal = true;
+            rightReal = false;
+        }
+        else {
+            rightReal = true;
+            leftReal = false;
+        }
 
         Debug.Log("Real images loaded: " + beginnerRealImages.Count);
         Debug.Log("AI images loaded: " + beginnerAIImages.Count);
@@ -27,8 +46,8 @@ public class ClikableImages : MonoBehaviour, IPointerClickHandler
 
     public void CheckAnswer()
     {
-        bool rightAnswer = beginnerRealImages.Contains(currentImage);
-
+      
+    /*
         if (rightAnswer)
         {
             inventory.AddScore(1);
@@ -37,6 +56,7 @@ public class ClikableImages : MonoBehaviour, IPointerClickHandler
         {
             inventory.TakeDamage(1);
         }
+        */
     }
 }
 
