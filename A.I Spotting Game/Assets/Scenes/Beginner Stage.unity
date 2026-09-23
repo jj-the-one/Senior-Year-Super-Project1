@@ -338,7 +338,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1010400800}
-  - component: {fileID: 1010400799}
   - component: {fileID: 1010400801}
   m_Layer: 0
   m_Name: ImageManager(Real/AI)
@@ -347,18 +346,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1010400799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1010400798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ae51265ad70ba46b8a5d6455f5d01c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1010400800
 Transform:
   m_ObjectHideFlags: 0
@@ -907,7 +894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1223809683027674103, guid: 4352946b3cc5d7540b076ddc404c1e48, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
