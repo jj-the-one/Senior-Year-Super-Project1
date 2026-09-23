@@ -375,8 +375,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftReal: 0
   rightReal: 0
-  beginnerRealImages: []
-  beginnerAIImages: []
+  beginnerRealImages:
+  - {fileID: 3571280551337427050, guid: d2b28663810a08b49a7c318f0f388619, type: 3}
+  - {fileID: 6611119843156363945, guid: 82a2d7943d7846b4c9e862e0994d6337, type: 3}
+  - {fileID: 7393328734657741735, guid: 2ace7ec425f085a4d9a249656839cad6, type: 3}
+  beginnerAIImages:
+  - {fileID: 4299672984491710102, guid: 37697c1cd459e3c428567d6149f77d23, type: 3}
+  - {fileID: 2283337927818864315, guid: e56d759ab62e7c747950daa39ed0be66, type: 3}
+  - {fileID: 8735535533563974387, guid: 3064723af7956e24eb0022367a45556f, type: 3}
 --- !u!1 &1255517844
 GameObject:
   m_ObjectHideFlags: 0
