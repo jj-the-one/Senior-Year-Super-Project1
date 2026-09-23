@@ -1,108 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class ClikableImages : MonoBehaviour, IPointerClickHandler
+public class ClikableImages : MonoBehaviour
 {
-    private GameObject LeftImage;
-    private GameObject RightImage;
+    private Image leftImage;
+    private Image rightImage;
+
     public bool leftReal;
     public bool rightReal;
-    private PlayerInventory inventory;
-    public List<Texture2D> beginnerRealImages = new List<Texture2D>();
-    public List<Texture2D> beginnerAIImages = new List<Texture2D>();
- //   public Texture2D currentImage;
-    
-    public void Start() {
-        LeftImage = GameObject.Find("ImageSpotLeft");
-        RightImage = GameObject.Find("ImageSpotRight");
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        inventory = player.GetComponent<PlayerInventory>();
+    public List<Sprite> beginnerRealImages = new List<Sprite>();
+    public List<Sprite> beginnerAIImages = new List<Sprite>();
 
-        //Load images from the two folders
-        beginnerRealImages.AddRange(Resources.LoadAll<Texture2D>("Photos/Beginner Level Real"));
-        beginnerAIImages.AddRange(Resources.LoadAll<Texture2D>("Photos/Beginner Level A.I"));
-
-        int x = Random.Range(0,2);
-        if (x == 0) {
-            leftReal = true;
-            rightReal = false;
-        }
-        else {
-            rightReal = true;
-            leftReal = false;
-        }
-
-        Debug.Log("Real images loaded: " + beginnerRealImages.Count);
-        Debug.Log("AI images loaded: " + beginnerAIImages.Count);
-    }
-    public void OnPointerClick(PointerEventData eventData)
+    void Start()
     {
-        Debug.Log("Image was clicked!");
-        
-    }
+        leftImage = GameObject.Find("ImageSpotLeft").GetComponent<Image>();
+        rightImage = GameObject.Find("ImageSpotRight").GetComponent<Image>();
 
-    public void CheckAnswer(GameObject currentImage)
-    {
-        if (currentImage == LeftImage) {
-            
-        }
-    }
-}
-
-/*
-if the image was clicked then it has to initiate sequence of actoons:
-    -Random change of text
-    -Showing which answer was right based on the task for the round
-    -lookin for images in the arraylist of real and ai images.
-===================================================================
-
-    The code:
-   using System.Collections.Generic;
-using UnityEngine;
-
-public class ImageQuiz : MonoBehaviour
-{
-    private PlayerInventory inventory;
-
-    public List<Texture2D> beginnerRealImages = new List<Texture2D>();
-    public List<Texture2D> beginnerAIImages = new List<Texture2D>();
-
-    public Texture2D currentImage;
-
-    private void Start()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        inventory = player.GetComponent<PlayerInventory>();
-
-        // Load images from the two folders
+        // Load images
         beginnerRealImages.AddRange(
-            Resources.LoadAll<Texture2D>("Photos/Beginner Level Real")
+            Resources.LoadAll<Sprite>("Photos/Beginner Level Real")
         );
 
         beginnerAIImages.AddRange(
-            Resources.LoadAll<Texture2D>("Photos/Beginner Level A.I")
+            Resources.LoadAll<Sprite>("Photos/Beginner Level A.I")
         );
 
         Debug.Log("Real images loaded: " + beginnerRealImages.Count);
         Debug.Log("AI images loaded: " + beginnerAIImages.Count);
-    }
 
-    public void CheckAnswer()
-    {
-        bool rightAnswer = beginnerRealImages.Contains(currentImage);
+        // Randomly decide which side is Real
+        int x = Random.Range(0, 2);
 
-        if (rightAnswer)
+        if (x == 0)
         {
-            inventory.AddScore(1);
+            leftReal = true;
+            rightReal = false;
         }
         else
         {
-            inventory.TakeDamage(1);
+            leftReal = false;
+            rightReal = true;
+        }
+
+        // Pick random images
+        int realIndex = Random.Range(0, beginnerRealImages.Count);
+        int aiIndex = Random.Range(0, beginnerAIImages.Count);
+
+        Sprite realImage = beginnerRealImages[realIndex];
+        Sprite aiImage = beginnerAIImages[aiIndex];
+
+        // Put them into the two spots
+        if (leftReal)
+        {
+            leftImage.sprite = realImage;
+            rightImage.sprite = aiImage;
+        }
+        else
+        {
+            leftImage.sprite = aiImage;
+            rightImage.sprite = realImage;
         }
     }
 }
-
-*/
