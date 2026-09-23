@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Infinite bombs TBOI_0: 6611119843156363945
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

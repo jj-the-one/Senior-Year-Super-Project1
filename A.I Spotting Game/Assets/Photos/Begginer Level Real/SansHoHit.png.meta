@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SansHoHit_0: 3571280551337427050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

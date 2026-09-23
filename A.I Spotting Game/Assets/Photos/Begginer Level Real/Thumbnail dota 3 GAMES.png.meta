@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Thumbnail dota 3 GAMES_0: 7393328734657741735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
