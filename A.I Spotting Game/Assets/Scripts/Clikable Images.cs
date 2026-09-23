@@ -62,5 +62,26 @@ public class ClikableImages : MonoBehaviour
             leftImage.sprite = aiImage;
             rightImage.sprite = realImage;
         }
+        FitImageToScreen(leftImage);
+        FitImageToScreen(rightImage);
+    }
+    void FitImageToScreen(Image image)
+    {
+    image.SetNativeSize();
+
+    RectTransform rect = image.GetComponent<RectTransform>();
+
+    float screenWidth = Screen.width;
+    float screenHeight = Screen.height;
+
+    float widthScale = screenWidth / rect.rect.width;
+    float heightScale = screenHeight / rect.rect.height;
+
+    float scale = Mathf.Min(widthScale, heightScale);
+
+    // Don't enlarge images that are already smaller than the screen
+    scale = Mathf.Min(scale, 1f);
+
+    rect.localScale = new Vector3(scale, scale, 1f);
     }
 }
