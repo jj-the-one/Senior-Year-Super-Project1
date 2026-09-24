@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class ClikableImages : MonoBehaviour
 {
+    private PlayerInventory inventory;
+
     private Image leftImage;
     private Image rightImage;
 
@@ -15,6 +17,15 @@ public class ClikableImages : MonoBehaviour
 
     void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            inventory = player.GetComponent<PlayerInventory>();
+        }
+        else
+        {
+            Debug.LogWarning("Player with the 'Player' tag could not be found.");
+        }
         leftImage = GameObject.Find("ImageSpotLeft").GetComponent<Image>();
         rightImage = GameObject.Find("ImageSpotRight").GetComponent<Image>();
 
@@ -67,7 +78,28 @@ public class ClikableImages : MonoBehaviour
         rightImage.SetNativeSize();
         rightImage.rectTransform.localScale = Vector3.one * 0.5f;
     }
-    
+    public bool CheckAnswer(bool clickedLeft) {
+        if (clickedLeft && leftReal) {
+            Debug.Log("Correct! Left Image is real.");
+            inventory.AddScore(1);
+            return true;
+        }
+        else {
+            Debug.Log("Wrong! Right image is AI.");
+            inventory.TakeDamage(1);
+            return false;
+        }
+        if (!clickedLeft && rightReal) {
+            Debug.Log("Correct! Right image is real.");
+            inventory.AddScore(1);
+            return true;
+        }
+        else {
+            Debug.Log("Wrong! Left image is AI.");
+            inventory.TakeDamage(1);
+            return false;
+        }
+    }
 
     
 }
