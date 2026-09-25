@@ -12,6 +12,7 @@ public class clickedImage : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("left is clicked");
         gameManager.CheckAnswer(isLeftImage);
+        gameManager.NextSet();
     }
     
 }

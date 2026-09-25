@@ -6,14 +6,17 @@ public class ClikableImages : MonoBehaviour
 {
     private PlayerInventory inventory;
 
-    private Image leftImage;
-    private Image rightImage;
+    public Image leftImage;
+    public Image rightImage;
 
     public bool leftReal;
     public bool rightReal;
 
     public List<Sprite> beginnerRealImages = new List<Sprite>();
     public List<Sprite> beginnerAIImages = new List<Sprite>();
+    private int currentSet;
+    private int realIndex;
+    private int aiIndex;
 
     void Start()
     {
@@ -56,8 +59,8 @@ public class ClikableImages : MonoBehaviour
         }
 
         // Pick random images
-        int realIndex = Random.Range(0, beginnerRealImages.Count);
-        int aiIndex = Random.Range(0, beginnerAIImages.Count);
+        realIndex = Random.Range(0, beginnerRealImages.Count);
+        aiIndex = Random.Range(0, beginnerAIImages.Count);
 
         Sprite realImage = beginnerRealImages[realIndex];
         Sprite aiImage = beginnerAIImages[aiIndex];
@@ -96,6 +99,25 @@ public class ClikableImages : MonoBehaviour
             return false;
         }
  
+    }
+    public void LoadSet()
+    {
+       
+        if (leftReal) {
+            leftImage.sprite = beginnerRealImages[realIndex];
+            rightImage.sprite = beginnerAIImages[aiIndex];
+        }
+        else {
+            leftImage.sprite = beginnerAIImages[aiIndex];
+            rightImage.sprite = beginnerRealImages[realIndex];
+        }
+        
+        
+    }
+
+    public void NextSet()
+    {
+        LoadSet();
     }
 
     

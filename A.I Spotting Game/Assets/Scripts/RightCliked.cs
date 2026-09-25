@@ -11,5 +11,6 @@ public class RightCliked : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData) {
         Debug.Log("Right is clicked");
         gameManager.CheckAnswer(isRightClicked);
+        gameManager.NextSet();
     }
 }
