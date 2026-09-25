@@ -6,10 +6,11 @@ using UnityEngine;
 public class clickedImage : MonoBehaviour, IPointerClickHandler
 {
     public ClikableImages gameManager;
-    public bool isLeftImage;
+    private bool isLeftImage = true;
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("left is clicked");
         gameManager.CheckAnswer(isLeftImage);
     }
     

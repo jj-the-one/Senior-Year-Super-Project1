@@ -205,11 +205,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 114597351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c94811eba76eeb64eb39c794b11b914f, type: 3}
+  m_Script: {fileID: 11500000, guid: f2111d17fd6146149afa382a123a954f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1010400801}
-  isLeftImage: 0
 --- !u!1 &453600822
 GameObject:
   m_ObjectHideFlags: 0

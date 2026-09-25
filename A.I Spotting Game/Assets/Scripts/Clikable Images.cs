@@ -82,23 +82,20 @@ public class ClikableImages : MonoBehaviour
         if (clickedLeft && leftReal) {
             Debug.Log("Correct! Left Image is real.");
             inventory.AddScore(1);
+            Debug.Log("true (if)");
             return true;
         }
-        else {
-            Debug.Log("Wrong! Right image is AI.");
-            inventory.TakeDamage(1);
-            return false;
-        }
-        if (!clickedLeft && rightReal) {
-            Debug.Log("Correct! Right image is real.");
+        else if (!clickedLeft && rightReal) {
+            Debug.Log("Right true");
             inventory.AddScore(1);
             return true;
         }
         else {
-            Debug.Log("Wrong! Left image is AI.");
+            Debug.Log("Incorrect");
             inventory.TakeDamage(1);
             return false;
         }
+ 
     }
 
     
