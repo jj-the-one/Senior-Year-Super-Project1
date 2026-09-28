@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ClikableImages : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ClikableImages : MonoBehaviour
 
     public bool leftReal;
     public bool rightReal;
+    private bool canClick = true;
 
     public List<Sprite> beginnerRealImages = new List<Sprite>();
     public List<Sprite> beginnerAIImages = new List<Sprite>();
@@ -82,6 +84,9 @@ public class ClikableImages : MonoBehaviour
         rightImage.rectTransform.localScale = Vector3.one * 0.5f;
     }
     public bool CheckAnswer(bool clickedLeft) {
+        if (!canClick) {
+            return false;
+        }
         if (clickedLeft && leftReal) {
             Debug.Log("Correct! Left Image is real.");
             inventory.AddScore(1);
@@ -100,8 +105,16 @@ public class ClikableImages : MonoBehaviour
         }
  
     }
+    public IEnumerator delay() {
+        canClick = false;
+        yield return new WaitForSeconds(0.5f);
+        LoadSet();
+        canClick = true;
+    }
     public void LoadSet()
     {
+        
+
         realIndex = Random.Range(0, beginnerRealImages.Count);
         aiIndex = Random.Range(0, beginnerAIImages.Count);
         int x = Random.Range(0, 2);
@@ -132,7 +145,7 @@ public class ClikableImages : MonoBehaviour
 
     public void NextSet()
     {
-        LoadSet();
+       StartCoroutine(delay());
     }
     private void SetSimilarSize(Image image)
     {
