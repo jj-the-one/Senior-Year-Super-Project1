@@ -124,10 +124,8 @@ public class ClikableImages : MonoBehaviour
             leftImage.sprite = beginnerAIImages[aiIndex];
             rightImage.sprite = beginnerRealImages[realIndex];
         }
-        leftImage.SetNativeSize();
-        leftImage.rectTransform.localScale = Vector3.one * 0.5f;
-        rightImage.SetNativeSize();
-        rightImage.rectTransform.localScale = Vector3.one * 0.5f;
+        SetSimilarSize(leftImage);
+        SetSimilarSize(rightImage);
         
         
     }
@@ -135,6 +133,22 @@ public class ClikableImages : MonoBehaviour
     public void NextSet()
     {
         LoadSet();
+    }
+    private void SetSimilarSize(Image image)
+    {
+        float maxWidth = 850f;
+        float maxHeight = 600f;
+
+        float imageWidth = image.sprite.rect.width;
+        float imageHeight = image.sprite.rect.height;
+
+        float widthScale = maxWidth / imageWidth;
+        float heightScale = maxHeight / imageHeight;
+
+        float scale = Mathf.Min(widthScale, heightScale);
+
+        image.SetNativeSize();
+        image.rectTransform.localScale = new Vector3(scale, scale, 1f);
     }
 
     
