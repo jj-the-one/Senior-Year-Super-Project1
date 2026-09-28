@@ -102,7 +102,20 @@ public class ClikableImages : MonoBehaviour
     }
     public void LoadSet()
     {
-       
+        realIndex = Random.Range(0, beginnerRealImages.Count);
+        aiIndex = Random.Range(0, beginnerAIImages.Count);
+        int x = Random.Range(0, 2);
+
+        if (x == 0)
+        {
+            leftReal = true;
+            rightReal = false;
+        }
+        else
+        {
+            leftReal = false;
+            rightReal = true;
+        }
         if (leftReal) {
             leftImage.sprite = beginnerRealImages[realIndex];
             rightImage.sprite = beginnerAIImages[aiIndex];
@@ -111,6 +124,10 @@ public class ClikableImages : MonoBehaviour
             leftImage.sprite = beginnerAIImages[aiIndex];
             rightImage.sprite = beginnerRealImages[realIndex];
         }
+        leftImage.SetNativeSize();
+        leftImage.rectTransform.localScale = Vector3.one * 0.5f;
+        rightImage.SetNativeSize();
+        rightImage.rectTransform.localScale = Vector3.one * 0.5f;
         
         
     }
