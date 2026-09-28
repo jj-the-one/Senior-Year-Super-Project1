@@ -32,6 +32,7 @@ public class PlayerInventory : MonoBehaviour
             SceneController sceneController = FindObjectOfType<SceneController>();
             if (sceneController != null){
                 sceneController.ResultsPage();
+                Heal(5);
             }
             else{
                 Debug.LogError("SceneController could not be found!");
