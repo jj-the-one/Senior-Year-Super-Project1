@@ -9,8 +9,11 @@ public class RightCliked : MonoBehaviour, IPointerClickHandler
     private bool isRightClicked = false;
     // Start is called before the first frame update
     public void OnPointerClick(PointerEventData eventData) {
-        Debug.Log("Right is clicked");
-        gameManager.CheckAnswer(isRightClicked);
-        gameManager.NextSet();
+        if (gameManager.canClciked()){
+            Debug.Log("Right is clicked");
+            gameManager.CheckAnswer(isRightClicked);
+            gameManager.NextSet();
+        }
+        
     }
 }

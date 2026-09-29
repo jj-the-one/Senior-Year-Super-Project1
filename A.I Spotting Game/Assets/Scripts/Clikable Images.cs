@@ -78,10 +78,11 @@ public class ClikableImages : MonoBehaviour
             leftImage.sprite = aiImage;
             rightImage.sprite = realImage;
         }
-        leftImage.SetNativeSize();
-        leftImage.rectTransform.localScale = Vector3.one * 0.5f;
-        rightImage.SetNativeSize();
-        rightImage.rectTransform.localScale = Vector3.one * 0.5f;
+        SetSimilarSize(leftImage);
+        SetSimilarSize(rightImage);
+    }
+    public bool canClciked() {
+        return canClick;
     }
     public bool CheckAnswer(bool clickedLeft) {
         if (!canClick) {
@@ -107,7 +108,7 @@ public class ClikableImages : MonoBehaviour
     }
     public IEnumerator delay() {
         canClick = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         LoadSet();
         canClick = true;
     }
