@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 public class ClikableImages : MonoBehaviour
 {
@@ -9,13 +10,16 @@ public class ClikableImages : MonoBehaviour
 
     public Image leftImage;
     public Image rightImage;
+    public TMP_Text resultsText;
 
     public bool leftReal;
     public bool rightReal;
+
     private bool canClick = true;
 
     public List<Sprite> beginnerRealImages = new List<Sprite>();
     public List<Sprite> beginnerAIImages = new List<Sprite>();
+
     private int currentSet;
     private int realIndex;
     private int aiIndex;
@@ -23,6 +27,7 @@ public class ClikableImages : MonoBehaviour
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         if (player != null)
         {
             inventory = player.GetComponent<PlayerInventory>();
@@ -31,8 +36,13 @@ public class ClikableImages : MonoBehaviour
         {
             Debug.LogWarning("Player with the 'Player' tag could not be found.");
         }
+
         leftImage = GameObject.Find("ImageSpotLeft").GetComponent<Image>();
         rightImage = GameObject.Find("ImageSpotRight").GetComponent<Image>();
+        resultsText = GameObject.Find("Results Text(Correct)").GetComponent<TMP_Text>();
+
+        // Hide result text at the beginning
+        resultsText.gameObject.SetActive(false);
 
         // Load images
         beginnerRealImages.AddRange(
@@ -45,6 +55,97 @@ public class ClikableImages : MonoBehaviour
 
         Debug.Log("Real images loaded: " + beginnerRealImages.Count);
         Debug.Log("AI images loaded: " + beginnerAIImages.Count);
+
+        // Load the first set
+        LoadSet();
+
+        // Make sure images are visible
+        leftImage.gameObject.SetActive(true);
+        rightImage.gameObject.SetActive(true);
+    }
+
+    public bool canClciked()
+    {
+        return canClick;
+    }
+
+    public bool CheckAnswer(bool clickedLeft)
+    {
+        if (!canClick)
+        {
+            return false;
+        }
+
+        bool correct = false;
+
+        // Check if the clicked image is the real image
+        if (clickedLeft && leftReal)
+        {
+            Debug.Log("Correct! Left Image is real.");
+            correct = true;
+        }
+        else if (!clickedLeft && rightReal)
+        {
+            Debug.Log("Correct! Right Image is real.");
+            correct = true;
+        }
+        else
+        {
+            Debug.Log("Incorrect");
+            correct = false;
+        }
+
+        // Give/take score
+        if (correct)
+        {
+            inventory.AddScore(1);
+            resultsText.text = "Correct!";
+        }
+        else
+        {
+            inventory.TakeDamage(1);
+            resultsText.text = "Incorrect!";
+        }
+
+        // Start the transition
+        StartCoroutine(delay());
+
+        return correct;
+    }
+
+    public IEnumerator delay()
+    {
+        // Disable clicking
+        canClick = false;
+
+        // Hide the images
+        leftImage.gameObject.SetActive(false);
+        rightImage.gameObject.SetActive(false);
+
+        // Show result text
+        resultsText.gameObject.SetActive(true);
+
+        // Wait 2 seconds
+        yield return new WaitForSeconds(2.0f);
+
+        // Hide result text
+        resultsText.gameObject.SetActive(false);
+
+        // Load new images
+        LoadSet();
+
+        // Show the new images
+        leftImage.gameObject.SetActive(true);
+        rightImage.gameObject.SetActive(true);
+
+        // Allow clicking again
+        canClick = true;
+    }
+
+    public void LoadSet()
+    {
+        realIndex = Random.Range(0, beginnerRealImages.Count);
+        aiIndex = Random.Range(0, beginnerAIImages.Count);
 
         // Randomly decide which side is Real
         int x = Random.Range(0, 2);
@@ -60,94 +161,28 @@ public class ClikableImages : MonoBehaviour
             rightReal = true;
         }
 
-        // Pick random images
-        realIndex = Random.Range(0, beginnerRealImages.Count);
-        aiIndex = Random.Range(0, beginnerAIImages.Count);
-
-        Sprite realImage = beginnerRealImages[realIndex];
-        Sprite aiImage = beginnerAIImages[aiIndex];
-
-        // Put them into the two spots
+        // Put images into the two spots
         if (leftReal)
         {
-            leftImage.sprite = realImage;
-            rightImage.sprite = aiImage;
-        }
-        else
-        {
-            leftImage.sprite = aiImage;
-            rightImage.sprite = realImage;
-        }
-        SetSimilarSize(leftImage);
-        SetSimilarSize(rightImage);
-    }
-    public bool canClciked() {
-        return canClick;
-    }
-    public bool CheckAnswer(bool clickedLeft) {
-        if (!canClick) {
-            return false;
-        }
-        if (clickedLeft && leftReal) {
-            Debug.Log("Correct! Left Image is real.");
-            inventory.AddScore(1);
-            Debug.Log("true (if)");
-            return true;
-        }
-        else if (!clickedLeft && rightReal) {
-            Debug.Log("Right true");
-            inventory.AddScore(1);
-            return true;
-        }
-        else {
-            Debug.Log("Incorrect");
-            inventory.TakeDamage(1);
-            return false;
-        }
- 
-    }
-    public IEnumerator delay() {
-        canClick = false;
-        yield return new WaitForSeconds(2.0f);
-        LoadSet();
-        canClick = true;
-    }
-    public void LoadSet()
-    {
-        
-
-        realIndex = Random.Range(0, beginnerRealImages.Count);
-        aiIndex = Random.Range(0, beginnerAIImages.Count);
-        int x = Random.Range(0, 2);
-
-        if (x == 0)
-        {
-            leftReal = true;
-            rightReal = false;
-        }
-        else
-        {
-            leftReal = false;
-            rightReal = true;
-        }
-        if (leftReal) {
             leftImage.sprite = beginnerRealImages[realIndex];
             rightImage.sprite = beginnerAIImages[aiIndex];
         }
-        else {
+        else
+        {
             leftImage.sprite = beginnerAIImages[aiIndex];
             rightImage.sprite = beginnerRealImages[realIndex];
         }
+
+        // Make their sizes similar
         SetSimilarSize(leftImage);
         SetSimilarSize(rightImage);
-        
-        
     }
 
     public void NextSet()
     {
-       StartCoroutine(delay());
+        StartCoroutine(delay());
     }
+
     private void SetSimilarSize(Image image)
     {
         float maxWidth = 850f;
@@ -162,8 +197,8 @@ public class ClikableImages : MonoBehaviour
         float scale = Mathf.Min(widthScale, heightScale);
 
         image.SetNativeSize();
-        image.rectTransform.localScale = new Vector3(scale, scale, 1f);
-    }
 
-    
+        image.rectTransform.localScale =
+            new Vector3(scale, scale, 1f);
+    }
 }
