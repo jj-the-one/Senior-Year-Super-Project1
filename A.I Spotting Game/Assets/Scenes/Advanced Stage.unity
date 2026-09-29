@@ -1193,13 +1193,14 @@ MonoBehaviour:
   - {fileID: 8594573518460051341, guid: 759e9e0cacd98fd4c851e7621004db54, type: 3}
   - {fileID: 5660775476227025817, guid: 5c9cd83f2ed104547b8a81d7b689a06c, type: 3}
   - {fileID: 5025479424479882914, guid: 388a5220d984cba4484cdf591fb43746, type: 3}
-  - {fileID: 0}
+  - {fileID: 5136091479320617008, guid: 9a303a4e113b2a04ba4744cd3b66b4ae, type: 3}
   realPrefabs:
   - {fileID: 3256839376392059701, guid: 158bca2c2617d5f4eb0f82088a3e9297, type: 3}
   - {fileID: 3284846218348158533, guid: d353c99bde411fd49952f8fe1c6c893e, type: 3}
   - {fileID: 9067165684948867048, guid: ed2ce79c1437590489c3ee4c5098745a, type: 3}
   - {fileID: 6443659471687807802, guid: fe8a2be84502eb64088223269dd563e2, type: 3}
-  - {fileID: 0}
+  - {fileID: 7024889315792784261, guid: 391ba09d1a672144db4d6749f7df7236, type: 3}
+  - {fileID: 7751416533316969698, guid: d63533f74933738439106096c144b792, type: 3}
   displayText: {fileID: 2041303755}
   realButton: {fileID: 1202088393}
   fakeButton: {fileID: 462670856}
