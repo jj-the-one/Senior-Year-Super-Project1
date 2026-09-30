@@ -104,7 +104,6 @@ public class ClikableImages : MonoBehaviour
             resultsText.text = "Correct!";
             if (inventory.score == 10) {
                 nextLevel.IntermediateStage();
-                inventory.score = 0;
                 inventory.Heal(5);
             }
         }
