@@ -11,6 +11,7 @@ public class ClikableImages : MonoBehaviour
     public Image leftImage;
     public Image rightImage;
     public TMP_Text resultsText;
+    public SceneController nextLevel;
 
     public bool leftReal;
     public bool rightReal;
@@ -25,7 +26,8 @@ public class ClikableImages : MonoBehaviour
     private int aiIndex;
 
     void Start()
-    {
+    {   
+        nextLevel = FindObjectOfType<SceneController>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
@@ -100,6 +102,10 @@ public class ClikableImages : MonoBehaviour
         {
             inventory.AddScore(1);
             resultsText.text = "Correct!";
+            if (inventory.score == 10) {
+                nextLevel.IntermediateStage();
+                inventory.score = 0;
+            }
         }
         else
         {
