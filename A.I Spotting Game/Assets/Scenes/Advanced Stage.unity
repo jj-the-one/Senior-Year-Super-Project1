@@ -1194,6 +1194,8 @@ MonoBehaviour:
   - {fileID: 5660775476227025817, guid: 5c9cd83f2ed104547b8a81d7b689a06c, type: 3}
   - {fileID: 5025479424479882914, guid: 388a5220d984cba4484cdf591fb43746, type: 3}
   - {fileID: 5136091479320617008, guid: 9a303a4e113b2a04ba4744cd3b66b4ae, type: 3}
+  - {fileID: 4055804737811134068, guid: f2fdde50ad9c4cf4e9b6c5e9accef019, type: 3}
+  - {fileID: 7114085532505934687, guid: 6b64f777415bb4a419c6d5265c35edad, type: 3}
   realPrefabs:
   - {fileID: 3256839376392059701, guid: 158bca2c2617d5f4eb0f82088a3e9297, type: 3}
   - {fileID: 3284846218348158533, guid: d353c99bde411fd49952f8fe1c6c893e, type: 3}
