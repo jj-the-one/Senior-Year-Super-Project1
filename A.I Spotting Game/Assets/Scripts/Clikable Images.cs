@@ -105,6 +105,7 @@ public class ClikableImages : MonoBehaviour
             if (inventory.score == 10) {
                 nextLevel.IntermediateStage();
                 inventory.score = 0;
+                inventory.Heal(5);
             }
         }
         else
