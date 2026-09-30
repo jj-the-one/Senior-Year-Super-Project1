@@ -102,7 +102,7 @@ public class ClikableImages : MonoBehaviour
         {
             inventory.AddScore(1);
             resultsText.text = "Correct!";
-            if (inventory.score == 10) {
+            if (inventory.score == 7) {
                 nextLevel.IntermediateStage();
                 inventory.Heal(5);
             }
