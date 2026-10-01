@@ -15,6 +15,7 @@ public class IntermediateScript : MonoBehaviour
 
     public bool leftReal;
     public bool rightReal;
+    
 
     private bool canClick = true;
 
@@ -24,6 +25,7 @@ public class IntermediateScript : MonoBehaviour
     private int currentSet;
     private int realIndex;
     private int aiIndex;
+    public int y;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,7 @@ public class IntermediateScript : MonoBehaviour
         else {
             Debug.LogWarning("Player with tag \"Player\" could not be found.");
         }
+        //Finds the image objects
         leftImage = GameObject.Find("ImageLeft").GetComponent<Image>();
         rightImage = GameObject.Find("ImageRight").GetComponent<Image>();
         oneImage = GameObject.Find("OneImage").GetComponent<Image>();
@@ -49,6 +52,17 @@ public class IntermediateScript : MonoBehaviour
         Debug.Log("Intermediate A.I loaded " + IntermediateAIImages.Count);
         Debug.Log("Intermediate Real loaded " + IntermediateRealImages.Count);
 
+        
+
+        
+    }
+
+    // Update is called once per frame
+    public bool canBeClicked() {
+        return canClick;
+    }
+    public void loadSet() {
+        //Setting Images to AI and Real (Left or Right)
         int x = Random.Range(0, 2);
         if (x == 0) {
             leftReal = true;
@@ -58,24 +72,37 @@ public class IntermediateScript : MonoBehaviour
             leftReal = false;
             rightReal = true;
         }
-        int y = Random.Range(0, 3);
+        /*Chooses what kind of round to give to the player
+        1. Spot the real Image
+        2. Spot the AI image
+        3. Determine whever the single image AI or Real
+        */
+        y = Random.Range(0, 3);
+        realIndex = Random.Range(0, IntermediateRealImages.Count);
+        aiIndex = Random.Range(0, IntermediateAIImages.Count);
+        if (leftReal)
+        {
+        leftImage.sprite = IntermediateRealImages[realIndex];
+        rightImage.sprite = IntermediateAIImages[aiIndex];
+        }
+        else
+        {
+            leftImage.sprite = IntermediateAIImages[aiIndex];
+            rightImage.sprite = IntermediateRealImages[realIndex];
+        }
+        leftImage.gameObject.SetActive(true);
+        rightImage.gameObject.SetActive(true);
         if (y == 0) {
             Debug.Log("Find real");
+            
         }
         else if (y == 1) {
             Debug.Log("Find AI");
+
         }
         else {
             Debug.Log("Only one");
         }
-
-        leftImage.gameObject.SetActive(true);
-        rightImage.gameObject.SetActive(true);
-    }
-
-    // Update is called once per frame
-    public bool canBeClicked() {
-        return canClick;
     }
     public bool CheckAnswer(bool clickedLeft) {
         if (!canClick) {
