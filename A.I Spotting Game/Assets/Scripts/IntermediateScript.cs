@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Collections;
-using UnityEngine UI;
+using UnityEngine.UI;
 
 public class IntermediateScript : MonoBehaviour
 {
     private PlayerInventory inventory;
     public Image leftImage;
     public Image rightImage;
+    public Image oneImage;
     public TMP_Text resultsText;
     public SceneController nextLevel;
 
@@ -35,15 +35,16 @@ public class IntermediateScript : MonoBehaviour
         else {
             Debug.LogWarning("Player with tag \"Player\" could not be found.");
         }
-        leftImage = GameObject.Find("ImageSpotLeft").GetComponent<Image>();
-        rightImage = GameObject.Find("ImageSpotRight").GetComponent<Image>();
+        leftImage = GameObject.Find("ImageLeft").GetComponent<Image>();
+        rightImage = GameObject.Find("ImageRight").GetComponent<Image>();
+        oneImage = GameObject.Find("OneImage").GetComponent<Image>();
         resultsText = GameObject.Find("Results Text(Correct)").GetComponent<TMP_Text>();
         //Sets 'Correct' 'Incorrect' messages to invisible.
         resultsText.gameObject.SetActive(false);
 
         //Loads the images into the lists from the folders
         IntermediateAIImages.AddRange(Resources.LoadAll<Sprite>("Photos/Intermediate A.I"));
-        IntermediateRealImages.AddRange(Resources.Loadall<Sprite>("Photos/Intermediate Real"));
+        IntermediateRealImages.AddRange(Resources.LoadAll<Sprite>("Photos/Intermediate Real"));
 
         Debug.Log("Intermediate A.I loaded " + IntermediateAIImages.Count);
         Debug.Log("Intermediate Real loaded " + IntermediateRealImages.Count);
@@ -96,13 +97,15 @@ public class IntermediateScript : MonoBehaviour
 
         if (correct == true){
             inventory.AddScore(1);
-            if (inventory.Score == 7) {
+            if (inventory.score == 7) {
                 nextLevel.AdvancedStage();
                 inventory.Heal(5);
             }
+            return correct;
         }
         else {
             inventory.TakeDamage(1);
+            return correct;
         }
 
     }
