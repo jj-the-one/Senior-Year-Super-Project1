@@ -26,6 +26,7 @@ public class IntermediateScript : MonoBehaviour
     private int realIndex;
     private int aiIndex;
     public int y;
+    private int whatToCheckFor;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +39,10 @@ public class IntermediateScript : MonoBehaviour
             Debug.LogWarning("Player with tag \"Player\" could not be found.");
         }
         //Finds the image objects
-        leftImage = GameObject.Find("ImageLeft").GetComponent<Image>();
-        rightImage = GameObject.Find("ImageRight").GetComponent<Image>();
+        leftImage = GameObject.Find("LeftImage").GetComponent<Image>();
+        rightImage = GameObject.Find("RightImage").GetComponent<Image>();
         oneImage = GameObject.Find("OneImage").GetComponent<Image>();
-        resultsText = GameObject.Find("Results Text(Correct)").GetComponent<TMP_Text>();
+        resultsText = GameObject.Find("ResultsText").GetComponent<TMP_Text>();
         //Sets 'Correct' 'Incorrect' messages to invisible.
         resultsText.gameObject.SetActive(false);
 
@@ -51,10 +52,7 @@ public class IntermediateScript : MonoBehaviour
 
         Debug.Log("Intermediate A.I loaded " + IntermediateAIImages.Count);
         Debug.Log("Intermediate Real loaded " + IntermediateRealImages.Count);
-
-        
-
-        
+        loadSet();
     }
 
     // Update is called once per frame
@@ -63,6 +61,7 @@ public class IntermediateScript : MonoBehaviour
     }
     public void loadSet() {
         //Setting Images to AI and Real (Left or Right)
+        oneImage.gameObject.SetActive(false);
         int x = Random.Range(0, 2);
         if (x == 0) {
             leftReal = true;
@@ -90,50 +89,143 @@ public class IntermediateScript : MonoBehaviour
             leftImage.sprite = IntermediateAIImages[aiIndex];
             rightImage.sprite = IntermediateRealImages[realIndex];
         }
-        leftImage.gameObject.SetActive(true);
-        rightImage.gameObject.SetActive(true);
+        
         if (y == 0) {
             Debug.Log("Find real");
-            
+            leftImage.gameObject.SetActive(true);
+            rightImage.gameObject.SetActive(true);
+            SetSimilarSize(leftImage);
+            SetSimilarSize(rightImage);
         }
         else if (y == 1) {
             Debug.Log("Find AI");
-
+            leftImage.gameObject.SetActive(true);
+            rightImage.gameObject.SetActive(true);
+            SetSimilarSize(leftImage);
+            SetSimilarSize(rightImage);
         }
         else {
             Debug.Log("Only one");
+            leftImage.gameObject.SetActive(false);
+            rightImage.gameObject.SetActive(false);
         }
     }
     public bool CheckAnswer(bool clickedLeft) {
-        if (!canClick) {
+        //To indentify the real image
+        if (y == 0) {
+            if (!canClick) {
             Debug.Log("Cannot be clicked.");
+                return false;
+            }
+            bool correct = false;
+            if (clickedLeft && leftReal) {
+                Debug.Log("Left is real.");
+                correct = true;
+            }
+            else if (!clickedLeft && rightReal) {
+                Debug.Log("Right is real.");
+                correct = true;
+            }
+            else {
+                correct = false;
+            }
+
+            if (correct == true){
+                inventory.AddScore(1);
+                if (inventory.score == 7) {
+                    nextLevel.AdvancedStage();
+                    inventory.Heal(5);
+                }
+                
+                return correct;
+            }
+            else {
+                inventory.TakeDamage(1);
+                return correct;
+            }
+        }
+        //To indentify AI image
+        else if (y == 1) {
+            if (!canClick) {
+                Debug.Log("Cannot be clicked.");
+                return false;
+            }
+            bool correct = false;
+            if (clickedLeft && leftReal) {
+                Debug.Log("Left is real.");
+                correct = false;
+            }
+            else if (!clickedLeft && rightReal) {
+                Debug.Log("Right is real.");
+                correct = false;
+            }
+            else {
+                correct = true;
+            }
+
+            if (!correct == true){
+                inventory.AddScore(1);
+                if (inventory.score == 7) {
+                    nextLevel.AdvancedStage();
+                    inventory.Heal(5);
+                }
+                return correct;
+            }
+            else {
+                inventory.TakeDamage(1);
+                return correct;
+            }
+        }
+        else {
             return false;
         }
-        bool correct = false;
-        if (clickedLeft && leftReal) {
-            Debug.Log("Left is real.");
-            correct = true;
-        }
-        else if (!clickedLeft && rightReal) {
-            Debug.Log("Right is real.");
-            correct = true;
-        }
-        else {
-            correct = false;
-        }
+        
 
-        if (correct == true){
-            inventory.AddScore(1);
-            if (inventory.score == 7) {
-                nextLevel.AdvancedStage();
-                inventory.Heal(5);
-            }
-            return correct;
-        }
-        else {
-            inventory.TakeDamage(1);
-            return correct;
-        }
+    }
+    public IEnumerator delay()
+    {
+        // Disable clicking
+        canClick = false;
 
+        // Hide the images
+        leftImage.gameObject.SetActive(false);
+        rightImage.gameObject.SetActive(false);
+
+        // Show result text
+        resultsText.gameObject.SetActive(true);
+
+        // Wait 2 seconds
+        yield return new WaitForSeconds(2.0f);
+
+        // Hide result text
+        resultsText.gameObject.SetActive(false);
+
+        // Load new images
+        loadSet();
+
+        // Show the new images
+        leftImage.gameObject.SetActive(true);
+        rightImage.gameObject.SetActive(true);
+
+        // Allow clicking again
+        canClick = true;
+    }
+    private void SetSimilarSize(Image image)
+    {
+        float maxWidth = 850f;
+        float maxHeight = 600f;
+
+        float imageWidth = image.sprite.rect.width;
+        float imageHeight = image.sprite.rect.height;
+
+        float widthScale = maxWidth / imageWidth;
+        float heightScale = maxHeight / imageHeight;
+
+        float scale = Mathf.Min(widthScale, heightScale);
+
+        image.SetNativeSize();
+
+        image.rectTransform.localScale =
+            new Vector3(scale, scale, 1f);
     }
 }
