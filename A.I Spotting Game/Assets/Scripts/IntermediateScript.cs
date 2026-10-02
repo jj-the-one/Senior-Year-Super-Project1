@@ -15,6 +15,7 @@ public class IntermediateScript : MonoBehaviour
 
     public bool leftReal;
     public bool rightReal;
+    public bool oneReal;
     
 
     private bool canClick = true;
@@ -25,7 +26,8 @@ public class IntermediateScript : MonoBehaviour
     private int currentSet;
     private int realIndex;
     private int aiIndex;
-    public int y;
+    private int y;
+    private int u;
     private int whatToCheckFor;
 
     // Start is called before the first frame update
@@ -105,9 +107,21 @@ public class IntermediateScript : MonoBehaviour
             SetSimilarSize(rightImage);
         }
         else {
-            Debug.Log("Only one");
             leftImage.gameObject.SetActive(false);
             rightImage.gameObject.SetActive(false);
+            u = Random.Range(0, 2);
+            if (u == 0) {
+                //Real one image
+                oneImage.sprite = IntermediateRealImages[realIndex];
+                oneImage.gameObject.SetActive(true);
+                SetSimilarSize(oneImage);
+            }
+            else {
+                //Fake one image
+                oneImage.sprite = IntermediateAIImages[aiIndex];
+                oneImage.gameObject.SetActive(true);
+                SetSimilarSize(oneImage);
+            }
         }
     }
     public bool CheckAnswer(bool clickedLeft) {
@@ -136,11 +150,12 @@ public class IntermediateScript : MonoBehaviour
                     nextLevel.AdvancedStage();
                     inventory.Heal(5);
                 }
-                
+                StartCoroutine(delay());
                 return correct;
             }
             else {
                 inventory.TakeDamage(1);
+                StartCoroutine(delay());
                 return correct;
             }
         }
@@ -151,28 +166,30 @@ public class IntermediateScript : MonoBehaviour
                 return false;
             }
             bool correct = false;
-            if (clickedLeft && leftReal) {
+            if (!clickedLeft && !leftReal) {
                 Debug.Log("Left is real.");
-                correct = false;
-            }
-            else if (!clickedLeft && rightReal) {
-                Debug.Log("Right is real.");
-                correct = false;
-            }
-            else {
                 correct = true;
             }
+            else if (!clickedLeft && !rightReal) {
+                Debug.Log("Right is real.");
+                correct = true;
+            }
+            else {
+                correct = false;
+            }
 
-            if (!correct == true){
+            if (correct == true){
                 inventory.AddScore(1);
                 if (inventory.score == 7) {
                     nextLevel.AdvancedStage();
                     inventory.Heal(5);
                 }
+                StartCoroutine(delay());
                 return correct;
             }
             else {
                 inventory.TakeDamage(1);
+                StartCoroutine(delay());
                 return correct;
             }
         }
@@ -190,6 +207,7 @@ public class IntermediateScript : MonoBehaviour
         // Hide the images
         leftImage.gameObject.SetActive(false);
         rightImage.gameObject.SetActive(false);
+        oneImage.gameObject.SetActive(false);
 
         // Show result text
         resultsText.gameObject.SetActive(true);
@@ -204,8 +222,7 @@ public class IntermediateScript : MonoBehaviour
         loadSet();
 
         // Show the new images
-        leftImage.gameObject.SetActive(true);
-        rightImage.gameObject.SetActive(true);
+        
 
         // Allow clicking again
         canClick = true;
