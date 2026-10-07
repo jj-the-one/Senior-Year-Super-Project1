@@ -1065,7 +1065,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4573951776981286300}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: IntermediateStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

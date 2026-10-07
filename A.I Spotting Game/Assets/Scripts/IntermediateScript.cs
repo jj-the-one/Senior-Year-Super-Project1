@@ -735,13 +735,11 @@ public class IntermediateScript : MonoBehaviour
         // LOAD SPRITES FROM RESOURCES
         // -----------------------------------------------------
 
-        IntermediateAIImages.Clear();
-        IntermediateRealImages.Clear();
 
         IntermediateAIImages.AddRange(
             Resources.LoadAll<Sprite>("Photos/Intermediate A.I")
         );
-
+        
         IntermediateRealImages.AddRange(
             Resources.LoadAll<Sprite>("Photos/Intermediate Real")
         );
