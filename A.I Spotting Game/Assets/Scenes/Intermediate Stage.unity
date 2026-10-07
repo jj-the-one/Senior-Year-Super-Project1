@@ -1348,27 +1348,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5662794666744768083, guid: 15d18ec1dd666164eb07eeaf5a31d2f3, type: 3}
+  - {fileID: 5835102919646469756, guid: e62ecb74ec58ca0469dd61cbbf4e29ea, type: 3}
+  - {fileID: 3728625996956174581, guid: 93f03a73a6f74f0448869199f8a4a513, type: 3}
+  - {fileID: 1171203843335926268, guid: 233b453c00eac1b439661ca868fbc924, type: 3}
+  - {fileID: 8594573518460051341, guid: 759e9e0cacd98fd4c851e7621004db54, type: 3}
+  - {fileID: 5660775476227025817, guid: 5c9cd83f2ed104547b8a81d7b689a06c, type: 3}
+  - {fileID: 5025479424479882914, guid: 388a5220d984cba4484cdf591fb43746, type: 3}
+  - {fileID: 5136091479320617008, guid: 9a303a4e113b2a04ba4744cd3b66b4ae, type: 3}
+  - {fileID: 4055804737811134068, guid: f2fdde50ad9c4cf4e9b6c5e9accef019, type: 3}
+  - {fileID: 7114085532505934687, guid: 6b64f777415bb4a419c6d5265c35edad, type: 3}
   realPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3256839376392059701, guid: 158bca2c2617d5f4eb0f82088a3e9297, type: 3}
+  - {fileID: 3284846218348158533, guid: d353c99bde411fd49952f8fe1c6c893e, type: 3}
+  - {fileID: 9067165684948867048, guid: ed2ce79c1437590489c3ee4c5098745a, type: 3}
+  - {fileID: 6443659471687807802, guid: fe8a2be84502eb64088223269dd563e2, type: 3}
+  - {fileID: 7024889315792784261, guid: 391ba09d1a672144db4d6749f7df7236, type: 3}
+  - {fileID: 7751416533316969698, guid: d63533f74933738439106096c144b792, type: 3}
+  - {fileID: 2805177763614010793, guid: 751ebc288be499844ac1a3baf4f76ef0, type: 3}
+  - {fileID: 6268059541194016625, guid: fddd59eab57cd6646bfa4dfc6a00c5fd, type: 3}
+  - {fileID: 8701198096524854105, guid: 9f1f32087e8e110449e62ce59956785c, type: 3}
+  - {fileID: 3057400355215564200, guid: c5ef68d3b3bca1e46adbb431be7fd6ee, type: 3}
   displayText: {fileID: 997552812}
   realButton: {fileID: 968600972}
   fakeButton: {fileID: 24707300}
