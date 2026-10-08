@@ -701,6 +701,8 @@ public class IntermediateScript : MonoBehaviour
             instructions.gameObject.SetActive(true);
             instructions.text =
                 "Is this image real or AI?";
+            yield return new WaitForSeconds(2f);
+            instructions.gameObject.SetActive(false);
         }
 
 
