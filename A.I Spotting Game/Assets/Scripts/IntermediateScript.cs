@@ -876,13 +876,14 @@ public class IntermediateScript : MonoBehaviour
         // SHOW RESULT
         // -----------------------------------------------------
 
-        if (resultsText != null)
+        if (resultsText != null && !(y==2))
         {
             resultsText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+
         }
 
 
-        yield return new WaitForSeconds(2f);
 
 
         // -----------------------------------------------------
@@ -898,7 +899,6 @@ public class IntermediateScript : MonoBehaviour
         // -----------------------------------------------------
         // CHECK PLAYER INVENTORY
         // -----------------------------------------------------
-
         if (inventory == null)
         {
             Debug.LogError(
@@ -913,7 +913,7 @@ public class IntermediateScript : MonoBehaviour
         // ADVANCE TO NEXT LEVEL AT 7
         // -----------------------------------------------------
 
-        if (inventory.score >= 7)
+        if (inventory.score >= 14)
         {
             Debug.Log(
                 "Intermediate complete. Score: " +
