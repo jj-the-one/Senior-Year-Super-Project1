@@ -675,7 +675,14 @@ public class IntermediateScript : MonoBehaviour
         // -----------------------------------------------------
         // SPAWN IMAGE
         // -----------------------------------------------------
-
+        if (instructions != null)
+        {
+            instructions.gameObject.SetActive(true);
+            instructions.text =
+                "Is this image real or AI?";
+            yield return new WaitForSeconds(2f);
+            instructions.gameObject.SetActive(false);
+        }
         if (selectedPrefab == null)
         {
             Debug.LogError(
@@ -696,14 +703,7 @@ public class IntermediateScript : MonoBehaviour
         // SHOW INSTRUCTION
         // -----------------------------------------------------
 
-        if (instructions != null)
-        {
-            instructions.gameObject.SetActive(true);
-            instructions.text =
-                "Is this image real or AI?";
-            yield return new WaitForSeconds(2f);
-            instructions.gameObject.SetActive(false);
-        }
+      
 
 
         // -----------------------------------------------------
