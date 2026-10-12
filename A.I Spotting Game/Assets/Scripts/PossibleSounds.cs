@@ -15,4 +15,9 @@ public class PossibleSounds : MonoBehaviour
     {
         
     }
+
+    public void correctAnswer()
+    {
+
+    }
 }
