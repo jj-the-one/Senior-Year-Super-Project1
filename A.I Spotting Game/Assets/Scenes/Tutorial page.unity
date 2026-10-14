@@ -473,9 +473,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Early Forms of A.I\r\n\t- Poorly Figured Hands(Extra Digits/Fused Fingers)\r\n\t-
     Mixed/Jumbled Words\r\nLater Forms of A.I\r\n\t- Look for how nice the quality
-    of image is and infer based on situation of the picture\r\n\t-Check for certain
-    textures to see of the image is too smooth where there should be rough edges\r\n\t-
-    Look at hair\n\t- Analyze content of text with critical thinking\r\n"
+    of image is and \t\t  infer based on situation of the picture\r\n\t- Check for
+    certain textures to see of the image is \t  too smooth where there should be
+    rough edges\r\n\t- Look at hair\n\t- Analyze content of text with critical thinking\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd4a1e37d690e14458b55cb03eea03c5, type: 2}
   m_sharedMaterial: {fileID: 3095505980335097607, guid: dd4a1e37d690e14458b55cb03eea03c5, type: 2}
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -734.5077, y: 0, z: -741.9968, w: -263.4266}
+  m_margin: {x: -734.5077, y: 0, z: -741.9968, w: -801.3999}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
