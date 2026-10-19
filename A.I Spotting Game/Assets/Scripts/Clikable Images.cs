@@ -12,6 +12,7 @@ public class ClikableImages : MonoBehaviour
     public Image rightImage;
     public TMP_Text resultsText;
     public SceneController nextLevel;
+    public TMP_Text introduction;
 
     public bool leftReal;
     public bool rightReal;
@@ -25,7 +26,7 @@ public class ClikableImages : MonoBehaviour
     private int realIndex;
     private int aiIndex;
 
-    void Start()
+    IEnumerator Start()
     {   
         nextLevel = FindObjectOfType<SceneController>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -42,9 +43,17 @@ public class ClikableImages : MonoBehaviour
         leftImage = GameObject.Find("ImageSpotLeft").GetComponent<Image>();
         rightImage = GameObject.Find("ImageSpotRight").GetComponent<Image>();
         resultsText = GameObject.Find("Results Text(Correct)").GetComponent<TMP_Text>();
+        introduction = GameObject.Find("Introduction").GetComponent<TMP_Text>();
+        leftImage.gameObject.SetActive(false);
+        rightImage.gameObject.SetActive(false);
 
-        // Hide result text at the beginning
         resultsText.gameObject.SetActive(false);
+        introduction.text = "Find the Real image.";
+        introduction.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        introduction.gameObject.SetActive(false);
+        // Hide result text at the beginning
+       
 
         // Load images
         beginnerRealImages.AddRange(
@@ -57,7 +66,11 @@ public class ClikableImages : MonoBehaviour
 
         Debug.Log("Real images loaded: " + beginnerRealImages.Count);
         Debug.Log("AI images loaded: " + beginnerAIImages.Count);
-
+        introduction.text = "Find the Real image.";
+        
+        
+      
+        
         // Load the first set
         LoadSet();
 
@@ -118,6 +131,12 @@ public class ClikableImages : MonoBehaviour
 
         return correct;
     }
+    public IEnumerator waiting() {
+        introduction.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        introduction.gameObject.SetActive(false);
+
+    }
 
     public IEnumerator delay()
     {
@@ -146,6 +165,9 @@ public class ClikableImages : MonoBehaviour
 
         // Allow clicking again
         canClick = true;
+    }
+    public IEnumerator hold() {
+        yield return new WaitForSeconds(2.0f);
     }
 
     public void LoadSet()
