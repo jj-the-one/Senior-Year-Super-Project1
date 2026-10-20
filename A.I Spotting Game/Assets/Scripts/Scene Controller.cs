@@ -44,6 +44,21 @@ public class SceneController : MonoBehaviour
 
     public void HomePage()
     {
+        // Find the player's inventory
+        PlayerInventory inventory = FindObjectOfType<PlayerInventory>();
+
+        if (inventory != null)
+        {
+            // Reset player stats
+            inventory.score = 0;
+            inventory.health = 5;
+        }
+        else
+        {
+            Debug.LogError("PlayerInventory could not be found!");
+        }
+
+        // Load the Home Page
         SceneManager.LoadScene("Home Page");
     }
 }
