@@ -27,6 +27,9 @@ public class AdvancedStageController : MonoBehaviour
 
     private bool playerAnswered = false;
     private bool playerAnswer = false;
+    public AudioSource audioSource;
+    public AudioClip correctSound;
+    public AudioClip wrongSound;
 
     void Start()
     {
@@ -143,6 +146,7 @@ public class AdvancedStageController : MonoBehaviour
         // Check the player's answer
         if (playerAnswer == correctAnswer)
         {
+            audioSource.PlayOneShot(correctSound);
             displayText.text = "Correct!";
 
             if (inventory != null)
@@ -152,6 +156,7 @@ public class AdvancedStageController : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(wrongSound);
             displayText.text = "Incorrect!";
 
             if (inventory != null)
