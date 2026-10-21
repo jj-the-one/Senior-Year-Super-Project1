@@ -38,6 +38,9 @@ public class IntermediateScript : MonoBehaviour
     public bool leftReal;
     public bool rightReal;
     public bool oneReal;
+    public Image leftBorder;
+    public Image rightBorder;
+    public Image centralBorder;
 
     private bool canClick = false;
 
@@ -66,6 +69,9 @@ public class IntermediateScript : MonoBehaviour
         // -----------------------------------------------------
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        leftBorder = GameObject.Find("BorderLeft").GetComponent<Image>();
+        rightBorder = GameObject.Find("BorderRight").GetComponent<Image>();
+        centralBorder = GameObject.Find("BorderCentral").GetComponent<Image>();
 
         if (player != null)
         {
@@ -401,8 +407,8 @@ public class IntermediateScript : MonoBehaviour
                 instructions.text =
                     "Find the real image.";
 
-                SetSimilarSize(leftImage);
-                SetSimilarSize(rightImage);
+                SetSimilarSize(leftImage, leftBorder);
+                SetSimilarSize(rightImage, rightBorder);
             }
 
 
@@ -417,8 +423,8 @@ public class IntermediateScript : MonoBehaviour
                 instructions.text =
                     "Find the AI image.";
 
-                SetSimilarSize(leftImage);
-                SetSimilarSize(rightImage);
+                SetSimilarSize(leftImage, leftBorder);
+                SetSimilarSize(rightImage, rightBorder);
             }
         }
 
@@ -449,11 +455,13 @@ public class IntermediateScript : MonoBehaviour
         {
             if (leftImage != null)
             {
+                leftBorder.gameObject.SetActive(true);
                 leftImage.gameObject.SetActive(true);
             }
 
             if (rightImage != null)
-            {
+            {   
+                rightBorder.gameObject.SetActive(true);
                 rightImage.gameObject.SetActive(true);
             }
         }
@@ -461,6 +469,8 @@ public class IntermediateScript : MonoBehaviour
         {
             if (oneImage != null)
             {
+                
+                           
                 oneImage.gameObject.SetActive(true);
             }
         }
@@ -969,16 +979,19 @@ public class IntermediateScript : MonoBehaviour
     {
         if (leftImage != null)
         {
+            leftBorder.gameObject.SetActive(false);
             leftImage.gameObject.SetActive(false);
         }
 
         if (rightImage != null)
         {
+            rightBorder.gameObject.SetActive(false);
             rightImage.gameObject.SetActive(false);
         }
 
         if (oneImage != null)
         {
+            centralBorder.gameObject.SetActive(false);
             oneImage.gameObject.SetActive(false);
         }
     }
@@ -1006,43 +1019,44 @@ public class IntermediateScript : MonoBehaviour
     // IMAGE SIZE
     // =========================================================
 
-    private void SetSimilarSize(Image image)
+    private void SetSimilarSize(Image image, Image border)
+{
+    float maxWidth = 850f;
+    float maxHeight = 600f;
+    float borderThickness = 8f;
+
+    float imageWidth = image.sprite.rect.width;
+    float imageHeight = image.sprite.rect.height;
+
+    float widthScale = maxWidth / imageWidth;
+    float heightScale = maxHeight / imageHeight;
+
+    float scale = Mathf.Min(widthScale, heightScale);
+
+    // Original image sizing
+    image.SetNativeSize();
+
+    image.rectTransform.localScale =
+        new Vector3(scale, scale, 1f);
+
+    // Calculate border size
+    RectTransform borderRect = border.rectTransform;
+
+    borderRect.localScale = new Vector3(scale, scale, 1f);
+
+    borderRect.sizeDelta = new Vector2(
+        imageWidth + (borderThickness * 2 / scale),
+        imageHeight + (borderThickness * 2 / scale)
+    );
+
+    // Match position
+    borderRect.position = image.rectTransform.position;
+
+    // Place border behind the image if they are siblings
+    if (border.transform.parent == image.transform.parent)
     {
-        if (image == null)
-        {
-            return;
-        }
-
-        if (image.sprite == null)
-        {
-            Debug.LogWarning(
-                "Cannot resize image because it has no sprite."
-            );
-
-            return;
-        }
-
-        float maxWidth = 850f;
-        float maxHeight = 600f;
-
-        float imageWidth = image.sprite.rect.width;
-        float imageHeight = image.sprite.rect.height;
-
-        float widthScale = maxWidth / imageWidth;
-        float heightScale = maxHeight / imageHeight;
-
-        float scale = Mathf.Min(
-            widthScale,
-            heightScale
-        );
-
-        image.SetNativeSize();
-
-        image.rectTransform.localScale =
-            new Vector3(
-                scale,
-                scale,
-                1f
-            );
+        border.transform.SetSiblingIndex(image.transform.GetSiblingIndex());
+        image.transform.SetAsLastSibling();
     }
+}
 }

@@ -13,6 +13,8 @@ public class ClikableImages : MonoBehaviour
     public TMP_Text resultsText;
     public SceneController nextLevel;
     public TMP_Text introduction;
+    public Image leftBorder;
+    public Image rightBorder;
 
     public bool leftReal;
     public bool rightReal;
@@ -25,6 +27,7 @@ public class ClikableImages : MonoBehaviour
     private int currentSet;
     private int realIndex;
     private int aiIndex;
+    private float borderThickness = 1f;
 
     IEnumerator Start()
     {   
@@ -39,13 +42,16 @@ public class ClikableImages : MonoBehaviour
         {
             Debug.LogWarning("Player with the 'Player' tag could not be found.");
         }
-
+        leftBorder = GameObject.Find("BorderLeft").GetComponent<Image>();
+        rightBorder = GameObject.Find("BorderRight").GetComponent<Image>();
         leftImage = GameObject.Find("ImageSpotLeft").GetComponent<Image>();
         rightImage = GameObject.Find("ImageSpotRight").GetComponent<Image>();
         resultsText = GameObject.Find("Results Text(Correct)").GetComponent<TMP_Text>();
         introduction = GameObject.Find("Introduction").GetComponent<TMP_Text>();
         leftImage.gameObject.SetActive(false);
         rightImage.gameObject.SetActive(false);
+        leftBorder.gameObject.SetActive(false);
+        rightBorder.gameObject.SetActive(false);
 
         resultsText.gameObject.SetActive(false);
         introduction.text = "Find the Real image.";
@@ -75,7 +81,9 @@ public class ClikableImages : MonoBehaviour
         LoadSet();
 
         // Make sure images are visible
+        leftBorder.gameObject.SetActive(true);
         leftImage.gameObject.SetActive(true);
+        rightBorder.gameObject.SetActive(true);
         rightImage.gameObject.SetActive(true);
     }
 
@@ -144,7 +152,9 @@ public class ClikableImages : MonoBehaviour
         canClick = false;
 
         // Hide the images
+        leftBorder.gameObject.SetActive(false);
         leftImage.gameObject.SetActive(false);
+        rightBorder.gameObject.SetActive(false);
         rightImage.gameObject.SetActive(false);
 
         // Show result text
@@ -160,7 +170,9 @@ public class ClikableImages : MonoBehaviour
         LoadSet();
 
         // Show the new images
+        leftBorder.gameObject.SetActive(true);
         leftImage.gameObject.SetActive(true);
+        rightBorder.gameObject.SetActive(true);
         rightImage.gameObject.SetActive(true);
 
         // Allow clicking again
@@ -202,8 +214,8 @@ public class ClikableImages : MonoBehaviour
         }
 
         // Make their sizes similar
-        SetSimilarSize(leftImage);
-        SetSimilarSize(rightImage);
+        SetSimilarSize(leftImage, leftBorder);
+        SetSimilarSize(rightImage, rightBorder);
     }
 
     public void NextSet()
@@ -211,22 +223,44 @@ public class ClikableImages : MonoBehaviour
         StartCoroutine(delay());
     }
 
-    private void SetSimilarSize(Image image)
+ private void SetSimilarSize(Image image, Image border)
+{
+    float maxWidth = 850f;
+    float maxHeight = 600f;
+    float borderThickness = 8f;
+
+    float imageWidth = image.sprite.rect.width;
+    float imageHeight = image.sprite.rect.height;
+
+    float widthScale = maxWidth / imageWidth;
+    float heightScale = maxHeight / imageHeight;
+
+    float scale = Mathf.Min(widthScale, heightScale);
+
+    // Original image sizing
+    image.SetNativeSize();
+
+    image.rectTransform.localScale =
+        new Vector3(scale, scale, 1f);
+
+    // Calculate border size
+    RectTransform borderRect = border.rectTransform;
+
+    borderRect.localScale = new Vector3(scale, scale, 1f);
+
+    borderRect.sizeDelta = new Vector2(
+        imageWidth + (borderThickness * 2 / scale),
+        imageHeight + (borderThickness * 2 / scale)
+    );
+
+    // Match position
+    borderRect.position = image.rectTransform.position;
+
+    // Place border behind the image if they are siblings
+    if (border.transform.parent == image.transform.parent)
     {
-        float maxWidth = 850f;
-        float maxHeight = 600f;
-
-        float imageWidth = image.sprite.rect.width;
-        float imageHeight = image.sprite.rect.height;
-
-        float widthScale = maxWidth / imageWidth;
-        float heightScale = maxHeight / imageHeight;
-
-        float scale = Mathf.Min(widthScale, heightScale);
-
-        image.SetNativeSize();
-
-        image.rectTransform.localScale =
-            new Vector3(scale, scale, 1f);
+        border.transform.SetSiblingIndex(image.transform.GetSiblingIndex());
+        image.transform.SetAsLastSibling();
     }
+}
 }
