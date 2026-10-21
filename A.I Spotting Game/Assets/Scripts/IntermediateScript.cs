@@ -45,6 +45,7 @@ public class IntermediateScript : MonoBehaviour
     private bool canClick = false;
     public AudioSource audioSource;
     public AudioClip correctSound;
+    public AudioClip wrongSound;
     private bool correctAnswer;
     private GameObject currentImage;
 
@@ -555,6 +556,7 @@ public class IntermediateScript : MonoBehaviour
 
         if (correct)
         {
+            audioSource.PlayOneShot(correctSound);
             if (inventory != null)
             {
                 inventory.AddScore(1);
@@ -562,7 +564,7 @@ public class IntermediateScript : MonoBehaviour
 
             if (resultsText != null)
             {
-                audioSource.PlayOneShot(correctSound);
+               
                 resultsText.text = "Correct!";
             }
         }
@@ -573,14 +575,15 @@ public class IntermediateScript : MonoBehaviour
         // -----------------------------------------------------
 
         else
-        {
+        {   
+            audioSource.PlayOneShot(wrongSound);
             if (inventory != null)
             {
                 inventory.TakeDamage(1);
             }
 
             if (resultsText != null)
-            {
+            { 
                 resultsText.text = "Incorrect!";
             }
         }
@@ -786,7 +789,8 @@ public class IntermediateScript : MonoBehaviour
             }
         }
         else
-        {
+        {   
+            audioSource.PlayOneShot(wrongSound);
             if (displayText != null)
             {
                 displayText.gameObject.SetActive(true);
