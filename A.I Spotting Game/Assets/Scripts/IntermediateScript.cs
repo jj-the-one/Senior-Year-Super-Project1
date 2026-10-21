@@ -43,7 +43,8 @@ public class IntermediateScript : MonoBehaviour
     public Image centralBorder;
 
     private bool canClick = false;
-
+    public AudioSource audioSource;
+    public AudioClip correctSound;
     private bool correctAnswer;
     private GameObject currentImage;
 
@@ -561,6 +562,7 @@ public class IntermediateScript : MonoBehaviour
 
             if (resultsText != null)
             {
+                audioSource.PlayOneShot(correctSound);
                 resultsText.text = "Correct!";
             }
         }
@@ -773,6 +775,7 @@ public class IntermediateScript : MonoBehaviour
         {
             if (displayText != null)
             {
+                audioSource.PlayOneShot(correctSound);
                 displayText.gameObject.SetActive(true);
                 displayText.text = "Correct!";
             }

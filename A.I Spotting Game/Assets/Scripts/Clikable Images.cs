@@ -18,6 +18,9 @@ public class ClikableImages : MonoBehaviour
 
     public bool leftReal;
     public bool rightReal;
+    public AudioSource audioSource;
+    public AudioClip correctSound; 
+    public AudioClip wrongSound;
 
     private bool canClick = true;
 
@@ -121,6 +124,7 @@ public class ClikableImages : MonoBehaviour
         // Give/take score
         if (correct)
         {
+            audioSource.PlayOneShot(correctSound);
             inventory.AddScore(1);
             resultsText.text = "Correct!";
             if (inventory.score == 7) {
@@ -130,6 +134,7 @@ public class ClikableImages : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(wrongSound);
             inventory.TakeDamage(1);
             resultsText.text = "Incorrect!";
         }
